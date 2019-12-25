@@ -35,6 +35,7 @@ interface ComponentOptions {
 	immutable?: boolean;
 	accessors?: boolean;
 	preserveWhitespace?: boolean;
+	base?: string;
 }
 
 export default class Component {
@@ -1414,7 +1415,17 @@ function process_component_options(component: Component, nodes) {
 						component_options[name] = value;
 						break;
 					}
+					case 'base': {
+						const code = 'invalid-base-attribute';
+						const message = `The 'base' attribute must be a string literal representing a valid class name`;
+						const value = get_value(attribute, code, message);
 
+						if (typeof value !== 'string')
+							component.error(attribute, { code, message });
+
+							component_options.base = value;
+						break;
+					}
 					default:
 						component.error(attribute, {
 							code: `invalid-options-attribute`,
