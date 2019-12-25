@@ -437,8 +437,13 @@ export default function dom(
 	}
 
 	if (options.customElement) {
+		const superclass = {
+			type: 'Identifier',
+			name: component.component_options.base || '@SvelteElement'
+		};
+
 		const declaration = b`
-			class ${name} extends @SvelteElement {
+			class ${name} extends ${superclass} {
 				constructor(options) {
 					super();
 
@@ -488,7 +493,9 @@ export default function dom(
 	} else {
 		const superclass = {
 			type: 'Identifier',
-			name: options.dev ? '@SvelteComponentDev' : '@SvelteComponent'
+			name: component.component_options.base || (
+				options.dev ? '@SvelteComponentDev' : '@SvelteComponent'
+			)
 		};
 
 		const declaration = b`

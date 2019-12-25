@@ -163,7 +163,7 @@ export interface Var {
 	is_reactive_dependency?: boolean;
 }
 
-export interface CssResult { 
+export interface CssResult {
 	code: string;
 	map: SourceMap;
 }
