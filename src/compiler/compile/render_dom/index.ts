@@ -385,6 +385,8 @@ export default function dom(
 
 		body.push(b`
 			function ${definition}(${args}) {
+				const self = ${x`$$self`};
+
 				${reactive_store_declarations}
 
 				${reactive_store_subscriptions}
